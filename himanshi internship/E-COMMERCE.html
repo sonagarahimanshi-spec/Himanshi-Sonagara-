@@ -1,0 +1,375 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perfumia - Luxury Perfumes</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+body{
+    background:#fff;
+    color:#333;
+}
+
+/* Header */
+header{
+    background:#fff;
+    padding:20px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    position:sticky;
+    top:0;
+    z-index:100;
+    border-bottom:1px solid #d4af37;
+    box-shadow:0 2px 10px rgba(212,175,55,.15);
+}
+
+.logo{
+    font-size:30px;
+    font-weight:700;
+    color:#d4af37;
+    letter-spacing:1px;
+}
+
+.cart-btn{
+    background:#d4af37;
+    color:#fff;
+    border:none;
+    padding:12px 20px;
+    border-radius:30px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.cart-btn:hover{
+    background:#c49b21;
+}
+
+/* Hero */
+.hero{
+    height:75vh;
+    background:
+    linear-gradient(
+        rgba(255,255,255,.65),
+        rgba(255,255,255,.65)
+    ),
+    url('https://images.unsplash.com/photo-1594035910387-fea47794261f?w=1600');
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.hero h1{
+    font-size:4rem;
+    color:#d4af37;
+}
+
+.hero p{
+    font-size:20px;
+    margin-top:15px;
+    color:#555;
+}
+
+/* Products */
+.section-title{
+    text-align:center;
+    margin:60px 0 30px;
+    color:#d4af37;
+    font-size:2.3rem;
+}
+
+.products{
+    width:90%;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:30px;
+    padding-bottom:70px;
+}
+
+.card{
+    background:#fff;
+    border-radius:15px;
+    overflow:hidden;
+    border:1px solid rgba(212,175,55,.3);
+    box-shadow:0 5px 20px rgba(212,175,55,.1);
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    border-color:#d4af37;
+}
+
+.card img{
+    width:100%;
+    height:320px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:20px;
+}
+
+.card h3{
+    margin-bottom:10px;
+}
+
+.price{
+    color:#d4af37;
+    font-size:24px;
+    font-weight:bold;
+    margin:15px 0;
+}
+
+.add-btn{
+    width:100%;
+    background:#d4af37;
+    color:#fff;
+    border:none;
+    padding:12px;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.add-btn:hover{
+    background:#c49b21;
+}
+
+/* Cart Sidebar */
+.cart{
+    position:fixed;
+    top:0;
+    right:-370px;
+    width:370px;
+    height:100%;
+    background:#fff;
+    transition:.4s;
+    padding:20px;
+    overflow:auto;
+    border-left:2px solid #d4af37;
+    z-index:999;
+}
+
+.cart.active{
+    right:0;
+}
+
+.cart h2{
+    color:#d4af37;
+    margin-bottom:20px;
+}
+
+.cart-item{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid #ddd;
+    padding:12px 0;
+}
+
+.remove{
+    background:#e74c3c;
+    color:#fff;
+    border:none;
+    padding:6px 10px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.total{
+    margin-top:20px;
+    font-size:24px;
+    color:#d4af37;
+    font-weight:bold;
+}
+
+.close-btn{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    background:#d4af37;
+    color:white;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* Footer */
+footer{
+    text-align:center;
+    padding:25px;
+    border-top:1px solid #d4af37;
+    color:#777;
+}
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:2.5rem;
+    }
+
+    .cart{
+        width:100%;
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">PERFUMIA</div>
+
+    <button class="cart-btn" onclick="toggleCart()">
+        Cart (<span id="cart-count">0</span>)
+    </button>
+</header>
+
+<section class="hero">
+    <div>
+        <h1>Luxury Perfume Collection</h1>
+        <p>Elegant fragrances crafted for unforgettable moments.</p>
+    </div>
+</section>
+
+<h2 class="section-title">Featured Perfumes</h2>
+
+<section class="products">
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1541643600914-78b084683601?w=600">
+        <div class="card-content">
+            <h3>Royal Oud</h3>
+            <div class="price">2149</div>
+            <button class="add-btn"
+            onclick="addToCart('Royal Oud',149)">
+            Add to Cart
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?w=600">
+        <div class="card-content">
+            <h3>Golden Musk</h3>
+            <div class="price">1179</div>
+            <button class="add-btn"
+            onclick="addToCart('Golden Musk',179)">
+            Add to Cart
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=600">
+        <div class="card-content">
+            <h3>Midnight Noir</h3>
+            <div class="price">1199</div>
+            <button class="add-btn"
+            onclick="addToCart('Midnight Noir',199)">
+            Add to Cart
+            </button>
+        </div>
+    </div>
+
+    <div class="card">
+        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59b7f?w=600">
+        <div class="card-content">
+            <h3>Luxury Essence</h3>
+            <div class="price">2229</div>
+            <button class="add-btn"
+            onclick="addToCart('Luxury Essence',229)">
+            Add to Cart
+            </button>
+        </div>
+    </div>
+
+</section>
+
+<div class="cart" id="cart">
+    <h2>Shopping Cart</h2>
+
+    <div id="cart-items"></div>
+
+    <div class="total">
+        Total: $<span id="total">0</span>
+    </div>
+
+    <button class="close-btn" onclick="toggleCart()">
+        Close Cart
+    </button>
+</div>
+
+<footer>
+   <p> Luxury Fragrances</p>
+</footer>
+
+<script>
+let cart = [];
+let total = 0;
+
+function toggleCart(){
+    document.getElementById("cart").classList.toggle("active");
+}
+
+function addToCart(name,price){
+    cart.push({name,price});
+    total += price;
+
+    document.getElementById("cart-count").textContent = cart.length;
+    document.getElementById("total").textContent = total;
+
+    renderCart();
+}
+
+function removeItem(index){
+    total -= cart[index].price;
+    cart.splice(index,1);
+
+    document.getElementById("cart-count").textContent = cart.length;
+    document.getElementById("total").textContent = total;
+
+    renderCart();
+}
+
+function renderCart(){
+    const cartItems = document.getElementById("cart-items");
+
+    cartItems.innerHTML = "";
+
+    cart.forEach((item,index)=>{
+        cartItems.innerHTML += `
+        <div class="cart-item">
+            <div>
+                <strong>${item.name}</strong><br>
+                $${item.price}
+            </div>
+
+            <button class="remove"
+            onclick="removeItem(${index})">
+            Remove
+            </button>
+        </div>
+        `;
+    });
+}
+</script>
+
+</body>
+</html>
+```

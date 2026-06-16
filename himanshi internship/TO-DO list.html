@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, sans-serif;
+        }
+
+        body{
+            background:#f4f4f4;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+        }
+
+        .container{
+            width:400px;
+            background:#fff;
+            padding:20px;
+            border-radius:10px;
+            box-shadow:0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        h2{
+            text-align:center;
+            margin-bottom:20px;
+        }
+
+        .input-box{
+            display:flex;
+            gap:10px;
+        }
+
+        input{
+            flex:1;
+            padding:10px;
+            border:1px solid #ccc;
+            border-radius:5px;
+        }
+
+        button{
+            padding:10px 15px;
+            border:none;
+            background:#007bff;
+            color:#fff;
+            border-radius:5px;
+            cursor:pointer;
+        }
+
+        ul{
+            list-style:none;
+            margin-top:20px;
+        }
+
+        li{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:10px;
+            margin-bottom:10px;
+            background:#eee;
+            border-radius:5px;
+        }
+
+        li.completed span{
+            text-decoration:line-through;
+            color:gray;
+        }
+
+        .actions button{
+            margin-left:5px;
+            padding:5px 8px;
+        }
+
+        .delete{
+            background:red;
+        }
+
+        .complete{
+            background:green;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>To-Do List</h2>
+
+    <div class="input-box">
+        <input type="text" id="taskInput" placeholder="Enter task">
+        <button onclick="addTask()">Add</button>
+    </div>
+
+    <ul id="taskList"></ul>
+</div>
+
+<script>
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+    function saveTasks(){
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+
+    function renderTasks(){
+        const taskList = document.getElementById("taskList");
+        taskList.innerHTML = "";
+
+        tasks.forEach((task, index) => {
+            const li = document.createElement("li");
+
+            if(task.completed){
+                li.classList.add("completed");
+            }
+
+            li.innerHTML = `
+                <span>${task.text}</span>
+
+                <div class="actions">
+                    <button class="complete"
+                        onclick="toggleTask(${index})">
+                        ✓
+                    </button>
+
+                    <button class="delete"
+                        onclick="deleteTask(${index})">
+                        ✕
+                    </button>
+                </div>
+            `;
+
+            taskList.appendChild(li);
+        });
+    }
+
+    function addTask(){
+        const input = document.getElementById("taskInput");
+        const text = input.value.trim();
+
+        if(text === "") return;
+
+        tasks.push({
+            text: text,
+            completed: false
+        });
+
+        saveTasks();
+        renderTasks();
+
+        input.value = "";
+    }
+
+    function toggleTask(index){
+        tasks[index].completed =
+            !tasks[index].completed;
+
+        saveTasks();
+        renderTasks();
+    }
+
+    function deleteTask(index){
+        tasks.splice(index, 1);
+
+        saveTasks();
+        renderTasks();
+    }
+
+    renderTasks();
+</script>
+
+</body>
+</html>
